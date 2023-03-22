@@ -11,11 +11,11 @@ const items = [
         key: "git_hub",
         icon: <GithubOutlined/>
     },
-    {
-        label: (<Link to={PATH.LINKEDIN}>Linked In</Link>),
-        key: "linked_in",
-        icon: <LinkedinOutlined/>
-    }
+    // {
+    //     label: (<Link to={PATH.LINKEDIN}>Linked In</Link>),
+    //     key: "linked_in",
+    //     icon: <LinkedinOutlined/>
+    // }
 ]
 
 const Header = () => {

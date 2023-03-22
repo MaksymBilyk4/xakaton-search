@@ -8,10 +8,10 @@ export const routes = () => [
         path: PATH.GITHUB,
         element: <GitHub/>
     },
-    {
-        path: PATH.LINKEDIN,
-        element: <LinkedIn/>
-    },
+    // {
+    //     path: PATH.LINKEDIN,
+    //     element: <LinkedIn/>
+    // },
     {
         path: PATH.GIT_HUB_PAGE.GIT_HUB_PROFILE,
         element: <GitHubUser/>
