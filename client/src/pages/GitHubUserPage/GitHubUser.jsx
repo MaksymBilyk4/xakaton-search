@@ -6,6 +6,7 @@ import {GIT_HUB_API_URL} from "../../services/API";
 import {PATH} from "../../utils/constants";
 import Loader from "../../components/Loader/Loader";
 import {LeftOutlined} from "@ant-design/icons"
+import {Button, Result} from "antd";
 
 const GitHubUser = () => {
     const {username} = useParams();
@@ -14,6 +15,7 @@ const GitHubUser = () => {
     const [followings, setFollowings] = useState([]);
     const [repos, setRepos] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const navigate = useNavigate();
 
     const linkStyles = {
@@ -24,19 +26,34 @@ const GitHubUser = () => {
         setLoading(true);
         getHubUsers(username, 1, 1)
             .then(r => {
-                const userData = r.data.items[0];
-                setUserData(userData);
+                if (r?.data.total_count > 0) {
+                    const userData = r.data.items[0];
+                    setUserData(userData);
 
-                getGitHubOptionalInfo(userData?.repos_url?.replace(GIT_HUB_API_URL, ""))
-                    .then(res => setRepos(res?.data));
-                getGitHubOptionalInfo(userData?.following_url?.replace(GIT_HUB_API_URL, "").replace("{/other_user}", ""))
-                    .then(res => setFollowings(res?.data));
-                getGitHubOptionalInfo(userData?.followers_url?.replace(GIT_HUB_API_URL, ""))
-                    .then(res => setFollowers(res?.data))
-                    .then(() => setLoading(false));
+                    getGitHubOptionalInfo(userData?.repos_url?.replace(GIT_HUB_API_URL, ""))
+                        .then(res => setRepos(res?.data));
+                    getGitHubOptionalInfo(userData?.following_url?.replace(GIT_HUB_API_URL, "").replace("{/other_user}", ""))
+                        .then(res => setFollowings(res?.data));
+                    getGitHubOptionalInfo(userData?.followers_url?.replace(GIT_HUB_API_URL, ""))
+                        .then(res => setFollowers(res?.data))
+                        .then(() => setLoading(false));
+                }else {
+                    setError(true)
+                }
             })
         ;
     }, [username]);
+
+    if (error) {
+        return <Result
+            title="No user found"
+            extra={
+                <Button onClick={() => navigate(PATH.GITHUB)} type="primary" key="back">
+                    Go to 'Git Hub' page
+                </Button>
+            }
+        />
+    }
 
     return (
         <div className={"container"}>
