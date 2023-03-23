@@ -37,8 +37,6 @@ const GitHub = () => {
             setLoading(true)
             getHubUsers(debounced, page, pageSize)
                 .then(res => {
-                    console.log("data", res.data.items);
-                    console.log("count", res.data.total_count);
                     setData(res.data.items);
                     setUsersCounter(res.data.total_count);
                     setLoading(false)
@@ -51,7 +49,7 @@ const GitHub = () => {
             <Input placeholder="Enter user`s git hub name" onChange={onInputChange} value={value}/>
             <p>{value === "" && data.length === 0 ? "" : `Найдено: ${foundUsersCounter} пользователей`}</p>
 
-            <div style={{display: "grid", gridTemplateColumns: "repeat(5, 20%)"}}>
+            <div className={"content"}>
                 {data?.map(item =>
                     <GitHubUserPreview key={item.id} login={item.login} image={item.avatar_url}/>
                 )}

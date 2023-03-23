@@ -11,7 +11,7 @@ const GitHubUserPreview = ({image, login}) => {
             onClick={() => navigate(`${PATH.GIT_HUB_PAGE.gitHubProfile(login)}`)}
             style={{display: "flex", flexDirection: "column", alignItems: "center", cursor: "pointer"}}
         >
-            <img width={200} src={image} alt={login}/>
+            <img className={"preview-image"} src={image} alt={login}/>
             <h4>{login}</h4>
         </div>
     );

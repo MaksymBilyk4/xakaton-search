@@ -61,9 +61,9 @@ const GitHubUser = () => {
                 <>
                     <h2 style={{fontWeight: "bold", fontSize: "28px", margin: "20px", cursor: "pointer"}}
                         onClick={() => navigate(-1)}><LeftOutlined/> Back</h2>
-                    <div style={{display: "flex", justifyContent: "flex-start"}}>
-                        <img src={userData?.avatar_url} alt={username}/>
-                        <div style={{padding: "0 0 0 50px"}}>
+                    <div className={"user-content"}>
+                        <img className={"user-image"} src={userData?.avatar_url} alt={username}/>
+                        <div className={"user-info"}>
                             <h2>{username}</h2>
                             <a
                                 style={linkStyles}
@@ -75,7 +75,7 @@ const GitHubUser = () => {
 
                             <p>Followers: [
                                 {followers.map(f =>
-                                    <Link style={linkStyles}
+                                    <Link key={f.login} style={linkStyles}
                                           to={PATH.GIT_HUB_PAGE.gitHubProfile(f.login)}>{f.login}, </Link>
                                 )}
                                 ]
@@ -83,19 +83,19 @@ const GitHubUser = () => {
 
                             <p>Followings: [
                                 {followings.map(f =>
-                                    <Link style={linkStyles}
+                                    <Link key={f.login} style={linkStyles}
                                           to={PATH.GIT_HUB_PAGE.gitHubProfile(f.login)}>{f.login}, </Link>
                                 )}
                                 ]
                             </p>
+
+                            <p>Repos: [
+                                {repos?.map(repo =>
+                                    <a key={repo.id} style={linkStyles} href={repo.html_url} target={"_blank"}>{repo.name}, </a>
+                                )} ]
+                            </p>
                         </div>
                     </div>
-
-                    <p>Repos: [
-                        {repos?.map(repo =>
-                            <a key={repo.id} style={linkStyles} href={repo.html_url} target={"_blank"}>{repo.name}, </a>
-                        )} ]
-                    </p>
                 </>
             }
 
